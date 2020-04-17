@@ -1,0 +1,24 @@
+{
+  "name": "firstapp",
+  "version": "1.0.0",
+  "description": "node course",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js echo \"start is a special reserved word, it works with just npm start\"",
+    "start-server": "nodemon app.js \"the same task but custom script, it works with npm run start-server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samIntegrateur/node-course-first-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samIntegrateur/node-course-first-app/issues"
+  },
+  "homepage": "https://github.com/samIntegrateur/node-course-first-app#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
