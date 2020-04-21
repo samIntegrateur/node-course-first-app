@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js echo \"start is a special reserved word, it works with just npm start\"",
+    "start": "nodemon app.js",
     "start-server": "nodemon app.js \"the same task but custom script, it works with npm run start-server\""
   },
   "repository": {
@@ -20,5 +20,9 @@
   "homepage": "https://github.com/samIntegrateur/node-course-first-app#readme",
   "devDependencies": {
     "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
   }
 }

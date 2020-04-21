@@ -61,5 +61,5 @@ const requestHandler = (req, res) => {
 // module.exports.handler = requestHandler;
 // module.exports.someText = 'Lorem ipsum';
 // shortcut without module
-exports.handler = requestHandler;
-exports.someText = 'Lorem ipsum';
+// exports.handler = requestHandler;
+// exports.someText = 'Lorem ipsum';
