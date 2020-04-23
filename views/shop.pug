@@ -1,0 +1,21 @@
+extends layouts/main-layout
+
+block styles
+  link(rel="stylesheet", href="/style/product.css")
+
+block content
+  if products.length > 0
+    .grid
+      each product in products
+        article.card.product-item
+          header.card__header
+            h1.product__title #{product.title}
+          .card__image
+            img(src="http://1.bp.blogspot.com/-PaptLPUKN2c/VPSw-nvQBWI/AAAAAAAAyzA/F8WBD_MXcf8/s1600/Barquettes%2Baux%2BMarrons2.jpg" alt="Barquette aux marrons")
+          .card__content
+            h2.product__price $3.99
+            p.product__description It's urgent to rehabilitate this awesome patisserie !
+          .card__actions
+            button.btn Add to card
+  else
+    h1 No products
