@@ -19,8 +19,9 @@ app.set('view engine', 'ejs');
 // where to find templates
 app.set('views', 'views');
 
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const errorController = require('./controllers/error');
 
 // can parse content from form
 app.use(bodyParser.urlencoded({extended: false}));
@@ -33,15 +34,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 //   next(); // Allows the request to continue to the next middleware
 // });
 
-app.use('/admin', adminData.routes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
-app.use((req, res, next) => {
-  // res.status(404).sendFile(path.join(__dirname, 'views', '404.html'))
-  res.status(404).render('404', {
-    docTitle: "Page not found"
-  })
-});
+app.use(errorController.get404);
 
 // const server = http.createServer(app);
 
