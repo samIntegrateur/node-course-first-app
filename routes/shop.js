@@ -22,6 +22,9 @@ router.get('/', (req, res) => {
     products: products,
     docTitle: 'My awesome patisserie',
     path: '/',
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCSS: true,
   });
 });
 

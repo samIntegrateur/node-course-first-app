@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df7ee756-ba32-4add-a4c6-33cfde6f6c4d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/views/404.pug" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/add-product.pug" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/layouts/main-layout.pug" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/404.hbs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/add-product.hbs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/layouts/main-layout.hbs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/shop.hbs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/shop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/shop.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/shop.pug" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +97,7 @@
       <workItem from="1587638197862" duration="819000" />
       <workItem from="1587639249103" duration="8696000" />
       <workItem from="1587721773749" duration="599000" />
-      <workItem from="1587976303528" duration="3011000" />
+      <workItem from="1587976303528" duration="5604000" />
     </task>
     <servers />
   </component>
@@ -121,10 +121,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2760" y="255" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587644751939" />
-    <state x="2683" y="262" width="672" height="678" key="search.everywhere.popup" timestamp="1587643055438">
+    <state x="2683" y="262" width="672" height="678" key="search.everywhere.popup" timestamp="1587981156083">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2683" y="262" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587643055438" />
+    <state x="2683" y="262" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587981156083" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="setValue">
