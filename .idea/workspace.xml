@@ -2,16 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df7ee756-ba32-4add-a4c6-33cfde6f6c4d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/views/404.hbs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/add-product.hbs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/layouts/main-layout.hbs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/shop.hbs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/404.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/add-product.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/includes/end.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/includes/head.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/includes/nav.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/shop.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/404.hbs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/404.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/add-product.hbs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/add-product.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/add-product.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/main-layout.hbs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/main-layout.pug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/shop.hbs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/shop.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/shop.pug" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +106,7 @@
       <workItem from="1587638197862" duration="819000" />
       <workItem from="1587639249103" duration="8696000" />
       <workItem from="1587721773749" duration="599000" />
-      <workItem from="1587976303528" duration="5604000" />
+      <workItem from="1587976303528" duration="7449000" />
     </task>
     <servers />
   </component>

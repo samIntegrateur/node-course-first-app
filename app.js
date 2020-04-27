@@ -2,7 +2,6 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
-const expressHandlebars = require('express-handlebars');
 
 
 const app = express();
@@ -10,14 +9,13 @@ app.use(favicon(path.join(__dirname, 'public', 'img', 'favicon.ico')));
 
 // Set a template engine
 // https://expressjs.com/fr/api.html#app.set
-// Difference between pug and handlebar method is that pug is built-in
-app.engine('hbs', expressHandlebars({
-  layoutsDir: 'views/layouts/',
-  defaultLayout: 'main-layout',
-  extname: 'hbs', // only for defaultLayout (shame)
-}));
-app.set('view engine', 'hbs');
-// app.set('view engine', 'pug');
+// pug and ejs are built-in so we don't need the engine step
+// app.engine('hbs', expressHandlebars({
+//   layoutsDir: 'views/layouts/',
+//   defaultLayout: 'main-layout',
+//   extname: 'hbs', // only for defaultLayout (shame)
+// }));
+app.set('view engine', 'ejs');
 // where to find templates
 app.set('views', 'views');
 
