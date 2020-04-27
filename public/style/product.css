@@ -7,10 +7,12 @@
 .product-item {
     width: 20rem;
     max-width: 95%;
+    display: flex;
+    flex-direction: column;
 }
 
 .product__title {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     text-align: center;
     font-weight: 600;
 }
@@ -21,6 +23,16 @@
     margin-bottom: 0.5rem;
 }
 
+.product__content {
+    flex-grow: 1;
+}
+
 .product__description {
     text-align: center;
+}
+
+.product__image img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
 }

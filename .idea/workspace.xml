@@ -2,14 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df7ee756-ba32-4add-a4c6-33cfde6f6c4d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controllers/error.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/products.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/product.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/admin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/admin/edit-product.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/admin/products.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/shop/cart.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/shop/checkout.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/shop/index.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/shop/orders.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/shop/product.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/style/product.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/product.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/add-product.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/add-product.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/includes/nav.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/includes/nav.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/shop.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/shop/product-list.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +69,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\views\shop" />
+      <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\views\admin" />
       <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\public\img" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -95,7 +109,7 @@
       <workItem from="1587638197862" duration="819000" />
       <workItem from="1587639249103" duration="8696000" />
       <workItem from="1587721773749" duration="599000" />
-      <workItem from="1587976303528" duration="15541000" />
+      <workItem from="1587976303528" duration="23255000" />
     </task>
     <servers />
   </component>
@@ -119,10 +133,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2760" y="255" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587644751939" />
-    <state x="2683" y="262" width="672" height="678" key="search.everywhere.popup" timestamp="1587981156083">
+    <state x="2683" y="262" width="672" height="678" key="search.everywhere.popup" timestamp="1588005025527">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2683" y="262" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587981156083" />
+    <state x="2683" y="262" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588005025527" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="setValue">
