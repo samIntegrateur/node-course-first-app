@@ -2,26 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df7ee756-ba32-4add-a4c6-33cfde6f6c4d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controllers/admin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/logo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/admin/edit-product.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/admin/products.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/shop/cart.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/shop/checkout.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/shop/index.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/shop/orders.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/shop/product.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/shop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/style/product.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style/product.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/cart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/shop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/add-product.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/add-product.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/includes/nav.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/includes/nav.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/shop.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/shop/product-list.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/shop/cart.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/shop/cart.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,20 +49,21 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.1.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\views\shop" />
-      <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\views\admin" />
-      <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\public\img" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\public\img" />
       <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\public" />
       <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp" />
       <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\public\style" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\public\js" />
+      <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\views\shop" />
+      <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\views\admin" />
+      <recent name="C:\Users\samue\Desktop\www\courses\node\firstapp\public\img" />
     </key>
   </component>
   <component name="RunManager">
@@ -110,6 +96,11 @@
       <workItem from="1587639249103" duration="8696000" />
       <workItem from="1587721773749" duration="599000" />
       <workItem from="1587976303528" duration="23255000" />
+      <workItem from="1588065182968" duration="599000" />
+      <workItem from="1588153776485" duration="609000" />
+      <workItem from="1588237020588" duration="18127000" />
+      <workItem from="1588328207306" duration="598000" />
+      <workItem from="1588669390597" duration="1666000" />
     </task>
     <servers />
   </component>
@@ -125,14 +116,88 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2734" y="236" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586941331438" />
-    <state x="2413" y="201" key="SettingsEditor" timestamp="1587983831410">
+    <state width="1373" height="264" key="GridCell.Tab.0.bottom" timestamp="1588257160716">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2413" y="201" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587983831410" />
-    <state x="2760" y="255" key="run.anything.popup" timestamp="1587644751939">
+    <state width="1373" height="264" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257160716" />
+    <state width="1373" height="264" key="GridCell.Tab.0.center" timestamp="1588257160716">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2760" y="255" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587644751939" />
+    <state width="1373" height="264" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257160716" />
+    <state width="1373" height="264" key="GridCell.Tab.0.left" timestamp="1588257160716">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="264" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257160716" />
+    <state width="1373" height="264" key="GridCell.Tab.0.right" timestamp="1588257160716">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="264" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257160716" />
+    <state width="1373" height="326" key="GridCell.Tab.1.bottom" timestamp="1588257150148">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="326" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257150148" />
+    <state width="1373" height="326" key="GridCell.Tab.1.center" timestamp="1588257150148">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="326" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257150148" />
+    <state width="1373" height="326" key="GridCell.Tab.1.left" timestamp="1588257150148">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="326" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257150148" />
+    <state width="1373" height="326" key="GridCell.Tab.1.right" timestamp="1588257150148">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="326" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257150148" />
+    <state width="1373" height="326" key="GridCell.Tab.2.bottom" timestamp="1588257150149">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="326" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257150149" />
+    <state width="1373" height="326" key="GridCell.Tab.2.center" timestamp="1588257150149">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="326" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257150149" />
+    <state width="1373" height="326" key="GridCell.Tab.2.left" timestamp="1588257150149">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="326" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257150149" />
+    <state width="1373" height="326" key="GridCell.Tab.2.right" timestamp="1588257150149">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="326" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257150149" />
+    <state width="1373" height="326" key="GridCell.Tab.3.bottom" timestamp="1588257150149">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="326" key="GridCell.Tab.3.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257150149" />
+    <state width="1373" height="326" key="GridCell.Tab.3.center" timestamp="1588257150149">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="326" key="GridCell.Tab.3.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257150149" />
+    <state width="1373" height="326" key="GridCell.Tab.3.left" timestamp="1588257150149">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="326" key="GridCell.Tab.3.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257150149" />
+    <state width="1373" height="326" key="GridCell.Tab.3.right" timestamp="1588257150149">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1373" height="326" key="GridCell.Tab.3.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588257150149" />
+    <state x="2413" y="201" key="SettingsEditor" timestamp="1588238699094">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2413" y="201" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588238699094" />
+    <state x="2735" y="218" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1588251728641">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2735" y="218" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588251728641" />
+    <state x="876" y="339" width="585" height="582" key="find.popup" timestamp="1588670003580">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2796" y="339" width="585" height="582" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588242043619" />
+    <state x="876" y="339" width="585" height="582" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588670003580" />
+    <state x="840" y="255" key="run.anything.popup" timestamp="1588669499359">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2760" y="255" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588259955087" />
+    <state x="840" y="255" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588669499359" />
     <state x="2683" y="262" width="672" height="678" key="search.everywhere.popup" timestamp="1588005025527">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

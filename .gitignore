@@ -29,3 +29,4 @@ yarn-error.log*
 todo.txt
 /data/products.json
 /graphisme/
+/data/cart.json
