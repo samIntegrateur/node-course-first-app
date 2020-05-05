@@ -14,8 +14,11 @@ exports.postAddProduct = (req, res) => {
   console.log('body', req.body);
   const { title, imageUrl, price, description} = req.body;
   const product = new Product(null, title, imageUrl, description, price);
-  product.save();
-  res.redirect('/');
+  product.save()
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch(err => console.log('err', err));
 };
 
 // We use the same view that addProduct
@@ -44,18 +47,23 @@ exports.postEditProduct = (req, res) => {
   console.log('body', req.body);
   const { id, title, imageUrl, price, description} = req.body;
   const product = new Product(id, title, imageUrl, description, price);
-  product.save();
-  res.redirect('/');
+  product.save()
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch(err => console.log('err', err));
 };
 
 exports.getProducts = (req, res) => {
-  Product.fetchAll((products) => {
-    res.render('admin/products', {
-      products: products,
-      docTitle: 'Admin products',
-      path: '/admin/products',
-    });
-  });
+  Product.fetchAll()
+    .then(([rows, fieldData]) => {
+      res.render('admin/products', {
+        products: rows,
+        docTitle: 'Admin products',
+        path: '/admin/products',
+      });
+    })
+    .catch(err => console.log('err', err));
 };
 
 

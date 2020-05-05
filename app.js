@@ -2,7 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
-
+const db = require('./util/database');
 
 const app = express();
 app.use(favicon(path.join(__dirname, 'public', 'img', 'favicon.ico')));
@@ -21,6 +21,7 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+
 const errorController = require('./controllers/error');
 
 // can parse content from form
