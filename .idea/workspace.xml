@@ -2,15 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df7ee756-ba32-4add-a4c6-33cfde6f6c4d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/util/database.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/cart-item.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/order-item.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/order.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/cart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/product.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/database.js" beforeDir="false" afterPath="$PROJECT_DIR$/util/database.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/shop/cart.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/shop/cart.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/shop/orders.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/shop/orders.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +111,9 @@
       <workItem from="1588153776485" duration="609000" />
       <workItem from="1588237020588" duration="18127000" />
       <workItem from="1588328207306" duration="598000" />
-      <workItem from="1588669390597" duration="7019000" />
+      <workItem from="1588669390597" duration="7281000" />
+      <workItem from="1588683328535" duration="7231000" />
+      <workItem from="1588754483361" duration="8357000" />
     </task>
     <servers />
   </component>
@@ -120,6 +129,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2734" y="236" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586941331438" />
+    <state x="1278" y="259" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1588683281734">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1278" y="259" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588683281734" />
     <state width="1373" height="264" key="GridCell.Tab.0.bottom" timestamp="1588257160716">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -197,11 +210,11 @@
     </state>
     <state x="2796" y="339" width="585" height="582" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588242043619" />
     <state x="876" y="339" width="585" height="582" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588670003580" />
-    <state x="840" y="255" key="run.anything.popup" timestamp="1588669499359">
+    <state x="840" y="255" key="run.anything.popup" timestamp="1588698134993">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="2760" y="255" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588259955087" />
-    <state x="840" y="255" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588669499359" />
+    <state x="840" y="255" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588698134993" />
     <state x="763" y="262" width="672" height="678" key="search.everywhere.popup" timestamp="1588682301224">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
