@@ -11,7 +11,13 @@ exports.getAddProduct = (req, res) => {
 exports.postAddProduct = (req, res) => {
   const { title, imageUrl, price, description} = req.body;
 
-  const product = new Product(title, price, description, imageUrl, null, req.user._id);
+  const product = new Product({
+    title,
+    price,
+    description,
+    imageUrl,
+    userId: req.user, // mongoose will just pick up the id, because of our Product model
+  });
 
   product
     .save()
@@ -51,9 +57,14 @@ exports.postEditProduct = (req, res) => {
   console.log('body', req.body);
   const { id, title, imageUrl, price, description} = req.body;
 
-  const product = new Product(title, price, description, imageUrl, id);
-  return product
-    .save()
+  Product.findById(id)
+    .then(product => {
+      product.title = title;
+      product.imageUrl = imageUrl;
+      product.price = price;
+      product.description = description;
+      return product.save()
+    })
     .then(result => {
       console.log('UPDATED PRODUCT');
       res.redirect('/admin/products');
@@ -62,8 +73,11 @@ exports.postEditProduct = (req, res) => {
 };
 
 exports.getProducts = (req, res) => {
-  Product.fetchAll()
+  Product.find()
+    // .select('title price -_id') // select/unselect fields
+    // .populate('userId') // populate ref, not just id (don't know why it didn't work here)
     .then(products => {
+      // console.log('products', products);
       res.render('admin/products', {
         products: products,
         docTitle: 'Admin products',
@@ -76,7 +90,7 @@ exports.getProducts = (req, res) => {
 
 exports.postDeleteProduct = (req, res) => {
   const productId = req.body.productId;
-  Product.deleteById(productId)
+  Product.findByIdAndRemove(productId)
     .then(() => {
       res.redirect('/admin/products');
     })

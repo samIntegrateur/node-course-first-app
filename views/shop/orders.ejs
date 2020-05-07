@@ -26,13 +26,13 @@
                                 </tr>
                                 </thead>
                                 <tbody class="cart-table__body">
-                                <% order.items.forEach(product => { %>
+                                <% order.products.forEach(item => { %>
                                     <tr class="cart-table__row">
                                         <th class="cart-table__cell cart-table__cell--title">
-                                            <%= product.title %>
+                                            <%= item.product.title %>
                                         </th>
                                         <td class="cart-table__cell cart-table__cell--quantity">
-                                            <%= product.quantity %>
+                                            <%= item.quantity %>
                                         </td>
                                     </tr>
                                 <% })%>

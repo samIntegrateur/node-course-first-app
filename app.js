@@ -2,6 +2,8 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
+const dbConfig = require('./db-config');
+const mongoose = require('mongoose');
 
 const app = express();
 app.use(favicon(path.join(__dirname, 'public', 'img', 'favicon.ico')));
@@ -23,7 +25,7 @@ const shopRoutes = require('./routes/shop');
 
 const errorController = require('./controllers/error');
 
-const mongoConnect = require('./util/database').mongoConnect;
+
 const User = require('./models/user');
 
 // can parse content from form
@@ -33,11 +35,15 @@ app.use(bodyParser.urlencoded({extended: false}));
 // Read access to public dir
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+// Bind the user mongoose object to req
 app.use((req, res, next) => {
-  User.findById('5eb2cfe6107d61db134c6b94')
+  User.findById('5eb430941d41ca46b4d04ac8')
     .then(user => {
-      req.user = new User(user.name, user.email, user.cart, user._id);
+      if (user) {
+        req.user = user;
+      } else {
+        console.warn('user not found');
+      }
       next();
     })
     .catch(err => console.log('err', err));
@@ -48,7 +54,22 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+mongoose.connect(dbConfig, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(result => {
+    // Create dumb user if there isn't
+    User.findOne().then(user => {
+      if (!user) {
+        const user = new User({
+          name: 'Sam',
+          email: 'sam@test.com',
+          cart: {
+            items: [],
+          },
+        });
+        user.save();
+      }
+    });
 
-mongoConnect(() => {
-  app.listen(3000);
-})
+    app.listen(3000);
+  })
+  .catch(err => console.log('err', err));

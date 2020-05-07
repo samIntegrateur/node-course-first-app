@@ -28,14 +28,14 @@
                     <% products.forEach(product => { %>
                         <tr class="cart-table__row">
                             <th class="cart-table__cell cart-table__cell--title">
-                                <%= product.title %>
+                                <%= product.productId.title %>
                             </th>
                             <td class="cart-table__cell cart-table__cell--quantity">
                                 <%= product.quantity %>
                             </td>
                             <td class="cart-table__cell cart-table__cell--actions">
                                 <form method="post" action="/cart-delete-item">
-                                    <input type="hidden" name="productId" value="<%= product._id %>">
+                                    <input type="hidden" name="productId" value="<%= product.productId._id %>">
                                     <button class="btn btn--light btn--small" type="submit">Remove</button>
                                 </form>
                             </td>

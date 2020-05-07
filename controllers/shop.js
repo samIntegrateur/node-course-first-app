@@ -1,7 +1,8 @@
 const Product = require('../models/product');
+const Order = require('../models/order');
 
 exports.getIndex = (req, res) => {
-  Product.fetchAll()
+  Product.find()
     .then(products => {
       res.render('shop/index', {
         products: products,
@@ -13,7 +14,7 @@ exports.getIndex = (req, res) => {
 }
 
 exports.getProducts = (req, res) => {
-  Product.fetchAll()
+  Product.find()
     .then(products => {
       res.render('shop/product-list', {
         products: products,
@@ -27,7 +28,7 @@ exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
 
   Product.findById(prodId)
-    .then((product) => {
+    .then(product => {
       res.render('shop/product-detail', {
         docTitle: product.title,
         path: '/products',
@@ -39,12 +40,13 @@ exports.getProduct = (req, res, next) => {
 
 exports.getCart = (req, res) => {
   req.user
-    .getCart()
-    .then(products => {
+    .populate('cart.items.productId') // get the full product ref (productId will be the object instead of id)
+    .execPopulate()
+    .then(user => {
       res.render('shop/cart', {
         docTitle: 'My cart',
         path: '/cart',
-        products: products,
+        products: user.cart.items,
       });
     })
     .catch(err => console.log('err', err));
@@ -55,9 +57,13 @@ exports.postCart = (req, res, next) => {
   Product.findById(prodId)
     .then(product => {
       // req.user is an instance of User
-      req.user.addToCart(product);
+      return req.user.addToCart(product);
+    })
+    .then(result => {
+      console.log('ADDED TO CART');
       res.redirect('/cart');
-    }).catch(err => console.log('err', err));
+    })
+    .catch(err => console.log('err', err));
 };
 
 exports.postCartDeleteProduct = (req, res, next) => {
@@ -71,10 +77,8 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.getOrders = (req, res) => {
-  req.user
-    .getOrders()
+  Order.find({'user.userId': req.user._id})
     .then(orders => {
-      console.log('orders', orders);
       res.render('shop/orders', {
         docTitle: 'My orders',
         path: '/orders',
@@ -93,13 +97,34 @@ exports.getCheckout = (req, res) => {
 
 // Create order from cart, then delete cart items
 exports.postOrder = (req, res, next) => {
-  let fetchedCart;
-
   req.user
-    .addOrder()
-      .then(result => {
-        console.log('CREATED ORDER AND REMOVED CART ITEMS');
-        res.redirect('/orders');
-      })
-      .catch(err => console.log('err', err));
+    .populate('cart.items.productId') // get the full product ref (productId will be the object instead of id)
+    .execPopulate()
+    .then(user => {
+      const products = user.cart.items.map(product => {
+        return {
+          // We need that to store the whole doc datas, not just the ObjectId
+          // https://www.udemy.com/course/nodejs-the-complete-guide/learn/lecture/11954190#overview
+          product: { ...product.productId._doc },
+          quantity: product.quantity,
+        };
+      });
+      const order = new Order({
+        user: {
+          name: req.user.name,
+          userId: req.user,
+        },
+        products: products
+      });
+      return order.save();
+    })
+    .then(result => {
+      return req.user.clearCart();
+    })
+    .then(result => {
+      console.log('CREATED ORDER AND CLEANED CART');
+      res.redirect('/orders');
+    })
+    .catch(err => console.log('err', err));
+
 };
