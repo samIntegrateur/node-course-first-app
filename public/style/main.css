@@ -125,13 +125,31 @@ body {
   color: #ffff;
   font-weight: 600;
   border: none;
-  transition: background-color cubic-bezier(0.215, 0.610, 0.355, 1.000) 200ms;
+  transition: background-color cubic-bezier(0.215, 0.610, 0.355, 1.000) 200ms,
+  color cubic-bezier(0.215, 0.610, 0.355, 1.000) 200ms;
 }
 
 .btn:hover,
 .btn:focus {
   background-color: #FF7B7B;
 }
+
+.btn--light {
+  background-color: #fff;
+  border: 1px solid #FF7B7B;
+  color: #FF7B7B;
+}
+
+.btn--light:hover,
+.btn--light:focus {
+  color: #fff;
+}
+
+.btn--small {
+  padding: 0.5rem 1rem;
+}
+
+
 
 .card {
   background-color: #fff;
@@ -286,4 +304,21 @@ h1:last-child, h2:last-child, h3:last-child {
   #side-menu-toggle {
     display: none;
   }
+}
+
+.list-reset,
+.list-reset__item {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.part:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.fixed-size {
+  margin: auto;
+  width: 45rem;
+  max-width: 100%;
 }

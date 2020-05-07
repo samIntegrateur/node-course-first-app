@@ -9,25 +9,17 @@ exports.getAddProduct = (req, res) => {
 };
 
 exports.postAddProduct = (req, res) => {
-  // would return undefined if we had not bodyParser
-  // https://www.udemy.com/course/nodejs-the-complete-guide/learn/lecture/11566290#overview
-  console.log('body', req.body);
   const { title, imageUrl, price, description} = req.body;
 
-  // create a new associated object
-  // https://www.udemy.com/course/nodejs-the-complete-guide/learn/lecture/11739036#overview
-  // Based on the relationship we defined, sequelize creates a method that handles it
-  // It will automatically provide the userId field for the new product
-  req.user.createProduct({
-    title,
-    price,
-    imageUrl,
-    description,
-  }).then(result => {
-    console.log('Created product');
-    res.redirect('/admin/products');
-  })
-  .catch(err => console.log('err', err));
+  const product = new Product(title, price, description, imageUrl, null, req.user._id);
+
+  product
+    .save()
+    .then(result => {
+      console.log('Created product');
+      res.redirect('/admin/products');
+    })
+    .catch(err => console.log('err', err));
 };
 
 // We use the same view that addProduct
@@ -40,12 +32,8 @@ exports.getEditProduct = (req, res) => {
   }
   const prodId = req.params.productId;
 
-  // Product.findByPk(prodId)
-  // getProducts : Method created by sequelize, we ensure that product requested is this user's one
-  req.user
-    .getProducts({where: {id: prodId}})
-    .then(products => {
-      const product = products[0];
+  Product.findById(prodId)
+    .then(product => {
       if (!product) {
         return res.redirect('/');
       }
@@ -63,14 +51,9 @@ exports.postEditProduct = (req, res) => {
   console.log('body', req.body);
   const { id, title, imageUrl, price, description} = req.body;
 
-  Product.findByPk(id)
-    .then(product => {
-      product.title = title;
-      product.imageUrl = imageUrl;
-      product.price = price;
-      product.description = description;
-      return product.save();
-    })
+  const product = new Product(title, price, description, imageUrl, id);
+  return product
+    .save()
     .then(result => {
       console.log('UPDATED PRODUCT');
       res.redirect('/admin/products');
@@ -79,9 +62,7 @@ exports.postEditProduct = (req, res) => {
 };
 
 exports.getProducts = (req, res) => {
-  // Product.findAll()
-  req.user
-    .getProducts()
+  Product.fetchAll()
     .then(products => {
       res.render('admin/products', {
         products: products,
@@ -95,12 +76,8 @@ exports.getProducts = (req, res) => {
 
 exports.postDeleteProduct = (req, res) => {
   const productId = req.body.productId;
-  Product.findByPk(productId)
-    .then(product => {
-      return product.destroy();
-    })
-    .then(result => {
-      console.log('DESTROY PRODUCT');
+  Product.deleteById(productId)
+    .then(() => {
       res.redirect('/admin/products');
     })
     .catch(err => console.log('err', err));

@@ -4,27 +4,55 @@
 <body>
 <%- include('../includes/nav.ejs') %>
 <main class="main">
-    <h1>Cart</h1>
 
-    <% if (products.length > 0 ) { %>
-        <ul>
-            <% products.forEach(product => { %>
-                <li>
-                    <p><%= product.title %> (<%= product.cartItem.quantity %>)</p>
-                    <form method="post" action="/cart-delete-item">
-                        <input type="hidden" name="productId" value="<%= product.id %>">
-                        <button class="btn" type="submit">Remove</button>
-                    </form>
-                </li>
-            <% })%>
-        </ul>
-    <form action="/create-order" method="post" style="text-align: center;">
-        <button class="btn" type="submit">
-            Order now
-        </button>
-    </form>
-    <% } else { %>
-        <p>No products in cart</p>
-    <% } %>
+    <article class="card fixed-size">
+        <h1 class="main-title">
+            My cart
+        </h1>
+
+        <% if (products.length > 0 ) { %>
+            <table class="cart-table part">
+                <thead class="cart-table__head">
+                    <tr class="cart-table__row">
+                        <th class="cart-table__cell cart-table__cell--title">
+                            Product name
+                        </th>
+                        <th class="cart-table__cell cart-table__cell--quantity">
+                            Quantity
+                        </th>
+                        <th class="cart-table__cell cart-table__cell--actions">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="cart-table__body">
+                    <% products.forEach(product => { %>
+                        <tr class="cart-table__row">
+                            <th class="cart-table__cell cart-table__cell--title">
+                                <%= product.title %>
+                            </th>
+                            <td class="cart-table__cell cart-table__cell--quantity">
+                                <%= product.quantity %>
+                            </td>
+                            <td class="cart-table__cell cart-table__cell--actions">
+                                <form method="post" action="/cart-delete-item">
+                                    <input type="hidden" name="productId" value="<%= product._id %>">
+                                    <button class="btn btn--light btn--small" type="submit">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% })%>
+                </tbody>
+            </table>
+            <form action="/create-order" method="post" style="text-align: center;">
+                <button class="btn" type="submit">
+                    Order now
+                </button>
+            </form>
+        <% } else { %>
+            <p>No products in cart</p>
+        <% } %>
+
+    </article>
+
 </main>
 <%- include('../includes/end.ejs') %>
