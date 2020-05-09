@@ -21,7 +21,9 @@
                         <%= product.description %>
                     </p>
                     <div class="card__actions product__actions">
-                        <%- include('../includes/add-to-cart.ejs') %>
+                        <% if (isAuthenticated) { %>
+                            <%- include('../includes/add-to-cart.ejs') %>
+                        <% } %>
                     </div>
                 </div>
             </div>

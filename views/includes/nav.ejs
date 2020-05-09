@@ -14,22 +14,33 @@
                 <a class="main-header__link <%= path === '/products' ? 'is-active' : ''%>"
                    href="/products">Products</a>
             </li>
-            <li class="main-header__list-item">
-                <a class="main-header__link <%= path === '/cart' ? 'is-active' : ''%>"
-                   href="/cart">Cart</a>
-            </li>
-            <li class="main-header__list-item">
-                <a class="main-header__link <%= path === '/orders' ? 'is-active' : ''%>"
-                   href="/orders">Orders</a>
-            </li>
-            <li class="main-header__list-item">
-                <a class="main-header__link <%= path === '/admin/add-product' ? 'is-active' : ''%>"
-                   href="/admin/add-product">Add product</a>
-            </li>
-            <li class="main-header__list-item">
-                <a class="main-header__link <%= path === '/admin/products' ? 'is-active' : ''%>"
-                   href="/admin/products">Admin products</a>
-            </li>
+            <% if (isAuthenticated) { %>
+                <li class="main-header__list-item">
+                    <a class="main-header__link <%= path === '/cart' ? 'is-active' : ''%>"
+                       href="/cart">Cart</a>
+                </li>
+                <li class="main-header__list-item">
+                    <a class="main-header__link <%= path === '/orders' ? 'is-active' : ''%>"
+                       href="/orders">Orders</a>
+                </li>
+                <li class="main-header__list-item">
+                    <a class="main-header__link <%= path === '/admin/add-product' ? 'is-active' : ''%>"
+                       href="/admin/add-product">Add product</a>
+                </li>
+                <li class="main-header__list-item">
+                    <a class="main-header__link <%= path === '/admin/products' ? 'is-active' : ''%>"
+                       href="/admin/products">Admin products</a>
+                </li>
+                <li class="main-header__list-item">
+                    <form action="/logout" method="post">
+                        <button class="main-header__link" type="submit">Logout</button>
+                    </form>
+                </li>
+            <% } else { %>
+                <li class="main-header__list-item <%= path === '/login' ? 'is-active' : ''%>">
+                    <a class="main-header__link" href="/login">Login</a>
+                </li>
+            <% } %>
         </ul>
     </nav>
 </header>

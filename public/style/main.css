@@ -50,10 +50,15 @@ body {
 }
 .main-header__link {
   color: #fff;
-
+  background-color: transparent;
+  border: none;
   text-decoration: none;
   position: relative;
+  font: inherit;
+  line-height: initial;
   z-index: 0;
+  cursor: pointer;
+  padding: 0;
 }
 .main-header__link:before {
   content: '';
@@ -147,6 +152,11 @@ body {
 
 .btn--small {
   padding: 0.5rem 1rem;
+}
+
+.btn--block {
+  display: block;
+  width: 100%;
 }
 
 
