@@ -31,3 +31,4 @@ todo.txt
 /graphisme/
 /data/cart.json
 db-config.js
+mail-config.js
