@@ -35,6 +35,7 @@
                             </td>
                             <td class="cart-table__cell cart-table__cell--actions">
                                 <form method="post" action="/cart-delete-item">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                     <input type="hidden" name="productId" value="<%= product.productId._id %>">
                                     <button class="btn btn--light btn--small" type="submit">Remove</button>
                                 </form>
@@ -44,6 +45,7 @@
                 </tbody>
             </table>
             <form action="/create-order" method="post" style="text-align: center;">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button class="btn" type="submit">
                     Order now
                 </button>

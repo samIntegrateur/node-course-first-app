@@ -4,13 +4,15 @@
 <%- include('../includes/nav.ejs') %>
 
 <main class="main">
-
     <form class="form" action="/login" method="post">
 
         <div class="card">
             <h1 class="main-title">
                Login
             </h1>
+            <% if (errorMessage) { %>
+                <p class="error"><%= errorMessage %></p>
+            <% } %>
             <div class="form-group">
                 <label class="form-label" for="email">E-mail</label>
                 <input class="form-control" type="email" name="email" id="email">
@@ -19,7 +21,7 @@
                 <label class="form-label" for="password">Password</label>
                 <input class="form-control" type="password" name="password" id="password">
             </div>
-
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn btn--block" type="submit">
                 Login
             </button>
