@@ -22,7 +22,7 @@ const productSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectID,
     required: true,
-    rer: 'User', // ref to User model
+    ref: 'User', // ref to User model
   },
 });
 

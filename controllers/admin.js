@@ -59,21 +59,27 @@ exports.postEditProduct = (req, res) => {
 
   Product.findById(id)
     .then(product => {
+
+      // Check if it's our product
+      if (product.userId.toString() !== req.user._id.toString()) {
+        return res.redirect('/');
+      }
+
       product.title = title;
       product.imageUrl = imageUrl;
       product.price = price;
       product.description = description;
       return product.save()
-    })
-    .then(result => {
-      console.log('UPDATED PRODUCT');
-      res.redirect('/admin/products');
+        .then(result => {
+          console.log('UPDATED PRODUCT');
+          res.redirect('/admin/products');
+        })
     })
     .catch(err => console.log('err', err));
 };
 
 exports.getProducts = (req, res) => {
-  Product.find()
+  Product.find({userId: req.user._id}) // only products created by user
     // .select('title price -_id') // select/unselect fields
     // .populate('userId') // populate ref, not just id (don't know why it didn't work here)
     .then(products => {
@@ -90,7 +96,7 @@ exports.getProducts = (req, res) => {
 
 exports.postDeleteProduct = (req, res) => {
   const productId = req.body.productId;
-  Product.findByIdAndRemove(productId)
+  Product.deleteOne({_id: productId, userId: req.user._id})
     .then(() => {
       res.redirect('/admin/products');
     })

@@ -32,11 +32,11 @@
             </form>
         </li>
     <% } else { %>
-        <li class="main-header__list-item <%= path === '/login' ? 'is-active' : ''%>">
-            <a class="main-header__link" href="/login">Login</a>
+        <li class="main-header__list-item">
+            <a class="main-header__link <%= path === '/login' ? 'is-active' : ''%>" href="/login">Login</a>
         </li>
-        <li class="main-header__list-item <%= path === '/signup' ? 'is-active' : ''%>">
-            <a class="main-header__link" href="/signup">Signup</a>
+        <li class="main-header__list-item">
+            <a class="main-header__link <%= path === '/signup' ? 'is-active' : ''%>" href="/signup">Signup</a>
         </li>
     <% } %>
 </ul>

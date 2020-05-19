@@ -344,3 +344,16 @@ h1:last-child, h2:last-child, h3:last-child {
 .success {
   color: green;
 }
+
+.link {
+  color: #FFA09C;
+}
+
+.link:hover, 
+.link:focus {
+  color: #FF7b7b; 
+}
+
+.align-right {
+  text-align: right;
+}
