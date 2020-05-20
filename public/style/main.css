@@ -357,3 +357,7 @@ h1:last-child, h2:last-child, h3:last-child {
 .align-right {
   text-align: right;
 }
+
+.has-error {
+  border-color: red;
+}

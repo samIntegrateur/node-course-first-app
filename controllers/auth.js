@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const sendGridApiKey = require('../mail-config');
 const crypto = require('crypto');
+const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
 
@@ -19,11 +20,26 @@ exports.getLogin = (req, res, next) => {
     docTitle: 'Login',
     path: '/login',
     errorMessage: errorMessage,
+    formValues: { email: '', password: '' },
+    validationErrors: [],
   });
 };
 
 exports.postLogin = (req, res, next) => {
   const { email, password } = req.body;
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    // if errors, render the same page
+    return res.status(422).render('auth/login', {
+      docTitle: 'Login',
+      path: '/login',
+      errorMessage: errors.array()[0].msg,
+      formValues: { email, password },
+      validationErrors: errors.array(),
+    });
+  }
 
   User.findOne({ email: email })
     .then(user => {
@@ -41,9 +57,13 @@ exports.postLogin = (req, res, next) => {
                 res.redirect('/');
               });
             }
-            console.log('WRONG PASSWORD');
-            req.flash('error', 'Invalid Password.');
-            res.redirect('/login');
+            return res.status(422).render('auth/login', {
+              docTitle: 'Login',
+              path: '/login',
+              errorMessage: 'Invalid password',
+              formValues: { email, password },
+              validationErrors: [{param: 'password'}],
+            });
           })
           .catch(err => {
             console.log('err', err);
@@ -52,10 +72,17 @@ exports.postLogin = (req, res, next) => {
           });
 
       } else {
-        console.warn('USER NOT FOUND');
+        return res.status(422).render('auth/login', {
+          docTitle: 'Login',
+          path: '/login',
+          errorMessage: 'Invalid user',
+          formValues: { email, password },
+          validationErrors: [{param: 'email'}],
+        });
+        // console.warn('USER NOT FOUND');
         // Flash method to add just a one time message
         // https://www.udemy.com/course/nodejs-the-complete-guide/learn/lecture/11954380#overview
-        req.flash('error', 'Invalid e-mail.');
+       // req.flash('error', 'Invalid e-mail.');
         res.redirect('/login');
       }
     })
@@ -69,43 +96,51 @@ exports.getSignup = (req, res, next) => {
     docTitle: 'Signup',
     path: '/signup',
     errorMessage: errorMessage,
+    formValues: { email: '', password: '', confirmPassword: '' },
+    validationErrors: [],
   });
 };
 
 exports.postSignup = (req, res, next) => {
   const { email, password, confirmPassword } = req.body;
-  User.findOne({ email: email })
-    .then(userDoc => {
-      if (userDoc) {
-        console.log('EMAIL ALREADY EXISTS');
-        req.flash('error', 'E-mail already exists.');
-        return res.redirect('/signup');
-      }
 
-      return bcrypt.hash(password, 12)
-        .then(hashedPassword => {
-          const user = new User({
-            email: email,
-            password: hashedPassword,
-            cart: { items: [] },
-          })
-          return user.save();
-        })
-        .then(result => {
-          console.log('USER CREATED');
-          res.redirect('/login');
-          return transporter.sendMail({
-            to: email,
-            from: 'samuel.desbos@gmail.com',
-            subject: 'Signup succeeded !',
-            html: '<h1>You successfully signed up !</h1>',
-          })
+  const errors = validationResult(req);
 
-        })
-        .catch(err => console.log('err', err));
+  if (!errors.isEmpty()) {
+    console.log('errors.array()', errors.array());
+
+    // if errors, render the same page
+    return res.status(422).render('auth/signup', {
+      docTitle: 'Signup',
+      path: '/signup',
+      errorMessage: errors.array()[0].msg,
+      formValues: { email, password, confirmPassword },
+      validationErrors: errors.array(),
+    });
+  }
+
+  bcrypt.hash(password, 12)
+    .then(hashedPassword => {
+      const user = new User({
+        email: email,
+        password: hashedPassword,
+        cart: {items: []},
+      })
+      return user.save();
+    })
+    .then(result => {
+      console.log('USER CREATED');
+      res.redirect('/login');
+      return transporter.sendMail({
+        to: email,
+        from: 'samuel.desbos@gmail.com',
+        subject: 'Signup succeeded !',
+        html: '<h1>You successfully signed up !</h1>',
+      })
 
     })
     .catch(err => console.log('err', err));
+
 }
 
 exports.postLogout = (req, res, next) => {
