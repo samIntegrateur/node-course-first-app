@@ -1,8 +1,9 @@
 const { validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 const Product = require('../models/product');
 
-exports.getAddProduct = (req, res) => {
+exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
     docTitle: 'Add a product',
     path: '/admin/add-product',
@@ -13,7 +14,7 @@ exports.getAddProduct = (req, res) => {
   });
 };
 
-exports.postAddProduct = (req, res) => {
+exports.postAddProduct = (req, res, next) => {
   const { title, imageUrl, price, description } = req.body;
 
   const errors = validationResult(req);
@@ -22,7 +23,7 @@ exports.postAddProduct = (req, res) => {
     console.log(' errors.array()', errors.array());
     return res.status(422).render('admin/edit-product', {
       docTitle: 'Add product',
-      path: '/admin/edit-product',
+      path: '/admin/add-product',
       editing: false,
       hasError: true,
       product: { title, imageUrl, price, description },
@@ -32,6 +33,8 @@ exports.postAddProduct = (req, res) => {
   }
 
   const product = new Product({
+    // use it to provoke a technical error
+    // _id: new mongoose.Types.ObjectId('5eb53787519c0132b07ce7bb'),
     title,
     price,
     description,
@@ -45,13 +48,17 @@ exports.postAddProduct = (req, res) => {
       console.log('Created product');
       res.redirect('/admin/products');
     })
-    .catch(err => console.log('err', err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
 
 // We use the same view that addProduct
 // but we get the id with a param, and un query param edit confirmation
 // It's just for testing query params, the id is sufficient
-exports.getEditProduct = (req, res) => {
+exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {
     return res.redirect('/');
@@ -73,10 +80,14 @@ exports.getEditProduct = (req, res) => {
         validationErrors: [],
       });
     })
-    .catch(err => console.log('err', err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
 
-exports.postEditProduct = (req, res) => {
+exports.postEditProduct = (req, res, next) => {
   console.log('body', req.body);
   const { id, title, imageUrl, price, description} = req.body;
 
@@ -113,10 +124,14 @@ exports.postEditProduct = (req, res) => {
           res.redirect('/admin/products');
         })
     })
-    .catch(err => console.log('err', err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
 
-exports.getProducts = (req, res) => {
+exports.getProducts = (req, res, next) => {
   Product.find({userId: req.user._id}) // only products created by user
     // .select('title price -_id') // select/unselect fields
     // .populate('userId') // populate ref, not just id (don't know why it didn't work here)
@@ -128,15 +143,23 @@ exports.getProducts = (req, res) => {
         path: '/admin/products',
       });
     })
-    .catch(err => console.log('err', err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
 
 
-exports.postDeleteProduct = (req, res) => {
+exports.postDeleteProduct = (req, res, next) => {
   const productId = req.body.productId;
   Product.deleteOne({_id: productId, userId: req.user._id})
     .then(() => {
       res.redirect('/admin/products');
     })
-    .catch(err => console.log('err', err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };

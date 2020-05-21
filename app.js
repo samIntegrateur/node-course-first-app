@@ -59,27 +59,6 @@ app.use(session({
 app.use(csrfProtection);
 app.use(flash());
 
-// Bind the user mongoose object to req
-// What we do in auth postLogin is just storing data,
-// we need a mongoose object to access methods like "addToCart"
-// https://www.udemy.com/course/nodejs-the-complete-guide/learn/lecture/11954320#overview
-app.use((req, res, next) => {
-  if (req.session.user) {
-    User.findById(req.session.user._id)
-      .then(user => {
-        if (user) {
-          req.user = user;
-        } else {
-          console.warn('user not found');
-        }
-        next();
-      })
-      .catch(err => console.log('err', err));
-  } else {
-    next();
-  }
-});
-
 app.use((req, res, next) => {
   // avoid adding this on each view
   res.locals = {
@@ -92,11 +71,49 @@ app.use((req, res, next) => {
   next();
 });
 
+// Bind the user mongoose object to req
+// What we do in auth postLogin is just storing data,
+// we need a mongoose object to access methods like "addToCart"
+// https://www.udemy.com/course/nodejs-the-complete-guide/learn/lecture/11954320#overview
+app.use((req, res, next) => {
+
+  if (!req.session.user) {
+    return next();
+  }
+  User.findById(req.session.user._id)
+    .then(user => {
+      // throw new Error('toto');
+      if (!user) {
+        return next();
+      }
+      req.user = user;
+      next();
+    })
+    .catch(err => {
+      next(new Error(err));
+    });
+});
+
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
 
+app.use('/500', errorController.get500);
+
 app.use(errorController.get404);
+
+app.use((error, req, res, next) => {
+  // res.status(error.httpStatusCode).render();
+
+  // redirect would trigger an infinite loop if error in a middleware with no condition
+  // like the one above binding the user
+  // https://www.udemy.com/course/nodejs-the-complete-guide/learn/lecture/12025806#overview
+  // res.redirect('/500');
+  res.status(500).render('500', {
+    docTitle: "Page not found",
+    path: '/500',
+  })
+});
 
 mongoose.connect(MongoDbUri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(result => {
