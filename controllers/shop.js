@@ -1,3 +1,8 @@
+const fs = require('fs');
+const path = require('path');
+
+const pdfKitDocument = require('pdfkit');
+
 const Product = require('../models/product');
 const Order = require('../models/order');
 
@@ -152,6 +157,75 @@ exports.postOrder = (req, res, next) => {
     .then(result => {
       console.log('CREATED ORDER AND CLEANED CART');
       res.redirect('/orders');
+    })
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
+
+};
+
+exports.getInvoice = (req, res, next) => {
+  const orderId = req.params.orderId;
+
+  // Check if the asker is the right user
+  Order.findById(orderId)
+    .then(order => {
+      if (!order) {
+        return next(new Error('No order found.'));
+      }
+      if (order.user.userId.toString() !== req.user._id.toString()) {
+        return next(new Error('Unauthorized'));
+      }
+
+      const invoiceName = 'invoice-' + orderId + '.pdf';
+      const invoicePath = path.join('data', 'invoices', invoiceName);
+
+
+      // CREATE PDF
+      const pdfDoc = new pdfKitDocument();
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+
+      pdfDoc.pipe(fs.createWriteStream(invoicePath));
+      // pipe our readable stream into the response
+      pdfDoc.pipe(res);
+
+      pdfDoc.fontSize(26).text(`Invoice N°\ ${orderId}`, { underline: true });
+      pdfDoc.text('---------------------');
+
+      let totalPrice = 0;
+      order.products.forEach(product => {
+        totalPrice += product.quantity * product.product.price;
+        pdfDoc.fontSize(18).text(`${product.product.title} - ${product.quantity} x $${product.product.price}`);
+      });
+
+      pdfDoc.text('---------------------');
+
+      pdfDoc.fontSize(22).text('Total price : $' + totalPrice.toFixed(2), {bold: true});
+
+      pdfDoc.end();
+
+      // GET PDF
+      // Preload data, can be slow for heavy files
+      // fs.readFile(invoicePath, (err, data) => {
+      //   if (err) {
+      //     return next(err);
+      //   }
+      //   res.setHeader('Content-Type', 'application/pdf');
+      //   // inline to open it in the browser, attachment to download
+      //   // https://www.udemy.com/course/nodejs-the-complete-guide/learn/lecture/12025868#overview
+      //   res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+      //   res.send(data);
+      // });
+
+      // streaming data
+      // const file = fs.createReadStream(invoicePath);
+      // res.setHeader('Content-Type', 'application/pdf');
+      // res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+      // pipe our readable stream into the response
+      // file.pipe(res);
     })
     .catch(err => {
       const error = new Error(err);

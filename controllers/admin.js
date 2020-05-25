@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
-const mongoose = require('mongoose');
-
 const Product = require('../models/product');
+
+const fileHelper = require('../util/file');
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
@@ -15,7 +15,22 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-  const { title, imageUrl, price, description } = req.body;
+  const { title, price, description } = req.body;
+  // multer has turned our image field into a file
+  const image = req.file;
+  console.log('image', image);
+
+  if (!image) {
+    return res.status(422).render('admin/edit-product', {
+      docTitle: 'Add product',
+      path: '/admin/add-product',
+      editing: false,
+      hasError: true,
+      product: { title, price, description },
+      errorMessage: 'Attached file is not an image.',
+      validationErrors: [],
+    });
+  }
 
   const errors = validationResult(req);
 
@@ -26,11 +41,13 @@ exports.postAddProduct = (req, res, next) => {
       path: '/admin/add-product',
       editing: false,
       hasError: true,
-      product: { title, imageUrl, price, description },
+      product: { title, price, description },
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
     });
   }
+
+  const imageUrl = image.path.replace(/\\/g, '/');
 
   const product = new Product({
     // use it to provoke a technical error
@@ -89,7 +106,8 @@ exports.getEditProduct = (req, res, next) => {
 
 exports.postEditProduct = (req, res, next) => {
   console.log('body', req.body);
-  const { id, title, imageUrl, price, description} = req.body;
+  const { id, title, price, description} = req.body;
+  const image = req.file;
 
   const errors = validationResult(req);
 
@@ -100,7 +118,7 @@ exports.postEditProduct = (req, res, next) => {
       path: '/admin/edit-product',
       editing: true,
       hasError: true,
-      product: { _id: id, title, imageUrl, price, description },
+      product: { _id: id, title, price, description },
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
     });
@@ -115,7 +133,13 @@ exports.postEditProduct = (req, res, next) => {
       }
 
       product.title = title;
-      product.imageUrl = imageUrl;
+
+      // if new image, delete old one and overwrite path, else, keep the old one
+      if (image) {
+        fileHelper.deleteFile(product.imageUrl);
+        product.imageUrl = image.path.replace(/\\/g, '/');
+      }
+
       product.price = price;
       product.description = description;
       return product.save()
@@ -153,7 +177,16 @@ exports.getProducts = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
   const productId = req.body.productId;
-  Product.deleteOne({_id: productId, userId: req.user._id})
+
+  Product.findById(productId)
+    .then(product => {
+      if (!product) {
+        return next(new Error('Product not found'));
+      }
+      fileHelper.deleteFile(product.imageUrl);
+
+      return Product.deleteOne({_id: productId, userId: req.user._id});
+    })
     .then(() => {
       res.redirect('/admin/products');
     })
