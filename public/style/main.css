@@ -190,6 +190,7 @@ body {
 
 .card__actions .btn + .btn,
 .card__actions form + .btn,
+.card__actions input + .btn,
 .card__actions .btn + form {
   margin-top: 1rem;
 }
