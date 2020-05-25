@@ -1,0 +1,35 @@
+<nav class="pagination">
+    <ul class="pagination__list">
+        <% if (currentPage > 1) { %>
+            <li class="pagination__list-item">
+                <a class="pagination__link" href="?page=1">1</a>
+            </li>
+        <% } %>
+        <% if (hasPreviousPage && previousPage > 1) { %>
+            <li class="pagination__list-item">
+                <a class="pagination__link" href="?page=<%= previousPage %>">
+                    <%= previousPage %>
+                </a>
+            </li>
+        <% } %>
+        <li class="pagination__list-item is-active">
+            <a class="pagination__link" href="?page=<%= currentPage %>">
+                <%= currentPage %>
+            </a>
+        </li>
+        <% if (hasNextPage && nextPage < lastPage) { %>
+            <li class="pagination__list-item">
+                <a class="pagination__link" href="?page=<%= nextPage %>">
+                    <%= nextPage %>
+                </a>
+            </li>
+        <% } %>
+        <% if (currentPage < lastPage) { %>
+            <li class="pagination__list-item">
+                <a class="pagination__link" href="?page=<%= lastPage %>">
+                    <%= lastPage %>
+                </a>
+            </li>
+        <% } %>
+    </ul>
+</nav>

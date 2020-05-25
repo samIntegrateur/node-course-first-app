@@ -361,3 +361,46 @@ h1:last-child, h2:last-child, h3:last-child {
 .has-error {
   border-color: red;
 }
+
+.pagination__list,
+.pagination__list-item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+.pagination__list {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination__list-item {
+  margin: 0 0.2rem;
+}
+
+.pagination__link {
+  padding: 0.7rem 1rem;
+  line-height: 1;
+  color: #FFA09C;
+  border: 1px solid #FFA09C;
+  text-decoration: none;
+  background-color: transparent;
+  display: block;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  border-radius: 3px;
+}
+
+.pagination__link:hover,
+.pagination__link:focus {
+  background-color: #FF7b7b;
+  border-color: #FF7b7b;
+  color: #fff;
+}
+
+.is-active .pagination__link {
+  border-color: transparent;
+  background-color: transparent;
+  color: #FFA09C;
+  text-decoration: underline;
+}
