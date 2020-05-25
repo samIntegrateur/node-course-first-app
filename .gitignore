@@ -32,5 +32,6 @@ todo.txt
 /data/cart.json
 db-config.js
 mail-config.js
+stripe-config-back.js
 
 /images

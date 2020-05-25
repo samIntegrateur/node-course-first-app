@@ -5,6 +5,8 @@ const pdfKitDocument = require('pdfkit');
 
 const Product = require('../models/product');
 const Order = require('../models/order');
+const stripeSecretKey = require('../stripe-config-back');
+const stripe = require('stripe')(stripeSecretKey);
 
 const ITEMS_PER_PAGE = 2;
 
@@ -155,12 +157,104 @@ exports.getOrders = (req, res, next) => {
     });
 };
 
-exports.getCheckout = (req, res) => {
-  res.render('shop/checkout', {
-    docTitle: 'Checkout',
-    path: '/checkout',
-  });
+exports.getCheckout = (req, res, next) => {
+  let products;
+  let total = 0;
+
+  req.user
+    .populate('cart.items.productId') // get the full product ref (productId will be the object instead of id)
+    .execPopulate()
+    .then(user => {
+      products = user.cart.items;
+      total = 0;
+
+      if (!products.length) {
+        return res.render('shop/checkout', {
+          docTitle: 'Checkout',
+          path: '/checkout',
+          products: products,
+          totalSum: total.toFixed(2),
+          sessionId: null,
+        });
+      }
+
+      products.forEach(product => {
+        total += product.quantity * product.productId.price;
+      })
+
+      // map our card to the format stripe awaits
+      // nb: the checkout/success (that add an order and clean card) is not secure as we can manually enter the url
+      // see stripe doc to implement a secure way
+      // https://www.udemy.com/course/nodejs-the-complete-guide/learn/lecture/12034728#overview
+      return stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: products.map(product => {
+          return {
+            name: product.productId.title,
+            description: product.productId.description,
+            amount: Math.round(product.productId.price.toFixed(2) * 100), // in cents (error if not integer)
+            currency: 'usd',
+            quantity: product.quantity,
+          };
+        }),
+        success_url: req.protocol + '://' + req.get('host') + '/checkout/success',
+        cancel_url: req.protocol + '://' + req.get('host') + '/checkout/cancel',
+      })
+        .then(session => {
+          res.render('shop/checkout', {
+            docTitle: 'Checkout',
+            path: '/checkout',
+            products: products,
+            totalSum: total.toFixed(2),
+            sessionId: session.id,
+          });
+        })
+    })
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
+
+// pasted from postOrder
+exports.getCheckoutSuccess = (req, res, next) => {
+  req.user
+    .populate('cart.items.productId') // get the full product ref (productId will be the object instead of id)
+    .execPopulate()
+    .then(user => {
+      const products = user.cart.items.map(product => {
+        return {
+          // We need that to store the whole doc datas, not just the ObjectId
+          // https://www.udemy.com/course/nodejs-the-complete-guide/learn/lecture/11954190#overview
+          product: { ...product.productId._doc },
+          quantity: product.quantity,
+        };
+      });
+      const order = new Order({
+        user: {
+          email: req.user.email,
+          userId: req.user,
+        },
+        products: products
+      });
+      return order.save();
+    })
+    .then(result => {
+      return req.user.clearCart();
+    })
+    .then(result => {
+      console.log('CREATED ORDER AND CLEANED CART');
+      res.redirect('/orders');
+    })
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
+
+};
+
 
 // Create order from cart, then delete cart items
 exports.postOrder = (req, res, next) => {

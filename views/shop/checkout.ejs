@@ -4,6 +4,78 @@
 <body>
 <%- include('../includes/nav.ejs') %>
 <main class="main">
-    <h1>Checkout</h1>
+
+    <article class="card fixed-size">
+        <h1 class="main-title">
+           Checkout
+        </h1>
+
+        <% if (products.length > 0 ) { %>
+            <table class="cart-table part">
+                <thead class="cart-table__head">
+                <tr class="cart-table__row">
+                    <th class="cart-table__cell cart-table__cell--title">
+                        Product name
+                    </th>
+                    <th class="cart-table__cell cart-table__cell--quantity">
+                        Quantity
+                    </th>
+                    <th class="cart-table__cell cart-table__cell--price">
+                        Unit price
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="cart-table__body">
+                <% products.forEach(product => { %>
+                    <tr class="cart-table__row">
+                        <th class="cart-table__cell cart-table__cell--title">
+                            <%= product.productId.title %>
+                        </th>
+                        <td class="cart-table__cell cart-table__cell--quantity">
+                            <%= product.quantity %>
+                        </td>
+                        <td class="cart-table__cell cart-table__cell--price">
+                            $<%= product.productId.price %>
+                        </td>
+                    </tr>
+                <% })%>
+                </tbody>
+            </table>
+
+            <div class="part part--end" style="padding-right: 1rem">
+                <h3>Total price&nbsp;: $<%= totalSum %></h3>
+            </div>
+
+            <div class="part">
+                <input type="hidden" id="session-id" value="<%= sessionId %>">
+                <button id="order-bn" class="btn">
+                    Order
+                </button>
+                <script src="https://js.stripe.com/v3/"></script>
+                <script>
+                  const stripePublicKey = 'pk_test_x59ELDHsaP6D2EyXxC6t7FuS00fyJZqE8x';
+
+                  // more or less following the course, but I guess this part is old, and using the node package would be better
+                  const stripe = new Stripe(stripePublicKey);
+
+                  const orderBtn = document.querySelector('#order-bn');
+
+                  const sessionId = document.querySelector('#session-id').value;
+
+                  orderBtn.addEventListener('click', () => {
+                    stripe.redirectToCheckout({
+                      sessionId: sessionId,
+                    })
+                  });
+
+                </script>
+            </div>
+
+        <% } else { %>
+            <p>No products in cart</p>
+        <% } %>
+
+    </article>
+
 </main>
 <%- include('../includes/end.ejs') %>

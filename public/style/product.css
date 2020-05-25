@@ -99,6 +99,9 @@
 .cart-table__cell--quantity {
     text-align: center;
 }
+.cart-table__cell--price {
+    text-align: right;
+}
 
 .cart-table__cell--actions {
     text-align: right;

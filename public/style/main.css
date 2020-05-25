@@ -16,6 +16,7 @@ body {
   font-size: 1.1rem;
 }
 
+
 .main-header {
   display: flex;
   align-items: center;
@@ -118,6 +119,7 @@ body {
 }
 
 .btn {
+  display: inline-block;
   font-family: inherit;
   font-size: inherit;
   text-align: center;
@@ -330,6 +332,10 @@ h1:last-child, h2:last-child, h3:last-child {
 
 .part:not(:last-child) {
   margin-bottom: 1.5rem;
+}
+
+.part--end {
+  text-align: right;
 }
 
 .fixed-size {
