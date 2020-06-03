@@ -1,25 +1,39 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
+const https = require('https');
+
 const favicon = require('serve-favicon');
-const MongoDbUri = require('./db-config');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
+
+// console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 
 const app = express();
 app.use(favicon(path.join(__dirname, 'public', 'img', 'favicon.ico')));
 
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@nodecourse-72dr8.mongodb.net/${process.env.MONGO_DEFAULT_DB}`;
+
 // configure cnx between session and mongodb
 const store = new MongoDBStore({
-  uri: MongoDbUri,
+  uri: MONGODB_URI,
   collection: 'sessions',
 });
 
 const csrfProtection = csrf({});
+
+// start server only if we find the ssl files
+// https://www.udemy.com/course/nodejs-the-complete-guide/learn/lecture/12198032#overview
+// const privateKey = fs.readFileSync('server.key');
+// const certificate = fs.readFileSync('server.cert');
 
 // diskStorage is a storage engine that we use with multer
 const fileStorage = multer.diskStorage({
@@ -57,6 +71,17 @@ app.set('views', 'views');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {
+  flags: 'a' // a for append (don't overwrite)
+});
+
+// add some headers for security
+app.use(helmet());
+// compress resources
+app.use(compression());
+// log
+app.use(morgan('combined', { stream: accessLogStream }));
 
 const errorController = require('./controllers/error');
 
@@ -147,7 +172,7 @@ app.use((error, req, res, next) => {
   })
 });
 
-mongoose.connect(MongoDbUri, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(result => {
     // Create dumb user if there isn't
     // User.findOne().then(user => {
@@ -163,6 +188,10 @@ mongoose.connect(MongoDbUri, { useNewUrlParser: true, useUnifiedTopology: true }
     //   }
     // });
 
-    app.listen(3000);
+    // This is how we would run an https server
+    // In the end we won't use it because host providers have their own mechanism
+    // https://www.udemy.com/course/nodejs-the-complete-guide/learn/lecture/12198032#overview
+    // https.createServer({key: privateKey, cert: certificate}, app).listen(process.env.PORT || 3000);
+    app.listen(process.env.PORT || 3000);
   })
   .catch(err => console.log('err', err));

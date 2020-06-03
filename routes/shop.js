@@ -5,7 +5,8 @@ const isAuth = require('../middleware/is-auth');
 const router = express.Router();
 
 // get requires an exact path (with use, order would matter, it should be last route)
-router.get('/', shopController.getIndex);
+// router.get('/', shopController.getIndex);
+router.get('/', shopController.getProducts);
 
 router.get('/products', shopController.getProducts);
 router.get('/products/:productId', shopController.getProduct);

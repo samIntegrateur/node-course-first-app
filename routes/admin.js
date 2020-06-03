@@ -11,7 +11,7 @@ router.get('/add-product', isAuth, adminController.getAddProduct);
 // /admin/add-product => POST
 router.post('/add-product', [
   body('title')
-    .isAlphanumeric()
+    .isString()
     .isLength({ min: 3 })
     .trim(),
 

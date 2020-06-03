@@ -27,11 +27,17 @@ yarn-debug.log*
 yarn-error.log*
 
 todo.txt
-/data/products.json
+/data/
 /graphisme/
-/data/cart.json
 db-config.js
 mail-config.js
 stripe-config-back.js
 
-/images
+nodemon.json
+
+access.log
+server.cert
+server.key
+
+images/*
+!images/.gitkeep
